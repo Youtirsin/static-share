@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Share</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <div id="container">
+      <div id="navi">
+        <div id="controllers">
+          <div id="btn-back"
+            @mouseenter="btnBackActive=true" 
+            @mouseleave="btnBackActive=false"
+            @click="goBack"
+          >
+            <img :src="path_stack.length != 0 && btnBackActive ? '/icons/arrow-left-circle-fill.svg' : '/icons/arrow-left-circle.svg'" alt="Bootstrap" width="32" height="32">
+          </div>
+          <div id="btn-forward"
+            @mouseenter="btnForwardActive=true"
+            @mouseleave="btnForwardActive=false"
+            @click="goForward"
+          >
+            <img :src="history_stack.length != 0 && btnForwardActive ? '/icons/arrow-right-circle-fill.svg' : '/icons/arrow-right-circle.svg'" alt="Bootstrap" width="32" height="32">
+          </div>
+          <div id="btn-parent"
+            @mouseenter="btnParentActive=true"
+            @mouseleave="btnParentActive=false"
+            @click="goBack"
+          >
+            <img :src="history_stack.length != 0 && btnParentActive ? '/icons/arrow-up-circle-fill.svg' : '/icons/arrow-up-circle.svg'" alt="Bootstrap" width="32" height="32">
+          </div>
+        </div>
+        <div id="path">
+          {{ current_path }}
+        </div>
+      </div>
+      <div id="directory">
+        <div class="list-group">
+          <a
+            v-for="(file, i) in files"
+            :class="{'list-group-item': true, 'list-group-item-action': true, 'active': selectedFileIndex == i}"
+            aria-current="true"
+            @click="selectFile(i)"
+            :key="i"
+          >
+            <div class="file-item">
+              <div class="file-item-icon">
+                <img 
+                  :src="selectIcon(i)"
+                  alt="Bootstrap" width="24" height="24"
+                >
+              </div>
+              <div class="file-item-name">
+                {{ file.name }}
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/vue.global.min.js"></script>
+  <script src="/js/index.js"></script>
+</body>
+
+</html>
